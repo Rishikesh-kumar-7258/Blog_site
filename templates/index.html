@@ -7,13 +7,14 @@
 {% block body %}
 <div class="container mt-5" style="width:80%;">
     <div class="row">
+        {% for post in Allpost %}
         <div class="col-sm-12 col-md-6">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-success">C++</strong>
-                    <h3 class="mb-0 text-white">Post title</h3>
-                    <div class="mb-1 text-muted">Nov 11</div>
-                    <p class="mb-auto text-white">This is a wider card with supporting text below as a natural lead-in to additional content.
+                    <strong class="d-inline-block mb-2 text-success">{{ post.tag }}</strong>
+                    <h3 class="mb-0 text-white">{{ post.title }}</h3>
+                    <div class="mb-1 text-muted">{{ post.time }}</div>
+                    <p class="mb-auto text-white">{{ post.content[:50] }}
                     </p>
                     <a href="#" class="stretched-link">Continue reading</a>
                 </div>
@@ -28,6 +29,8 @@
                 </div> -->
             </div>
         </div>
+        {% endfor %}
+
     </div>
 </div>
 {% endblock body %}
