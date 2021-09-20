@@ -41,6 +41,11 @@ def admin():
     
     return render_template("adminsignin.html")
 
+@app.route("/post/<int:id>")
+def postview(id):
+    post = Post.query.filter_by(id=id).first()
+    return render_template("post.html", post=post)
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True, port=5000)
