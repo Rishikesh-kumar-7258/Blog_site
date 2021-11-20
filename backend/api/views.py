@@ -1,7 +1,10 @@
 from django.shortcuts import render
-# import api_view
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from api.models import Post
+from api.serializers import PostSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -32,4 +35,8 @@ def deletePost(request):
 @api_view(['GET'])
 def listPost(request):
 
-    return Response("This is workig - all posts")
+    posts = Post.objects.all()
+
+    serializer = PostSerializer(data=posts, many=True)
+
+    return Response(serializer.data)
