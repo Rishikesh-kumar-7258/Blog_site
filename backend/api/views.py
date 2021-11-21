@@ -39,4 +39,7 @@ def listPost(request):
 
     serializer = PostSerializer(data=posts, many=True)
 
-    return Response(serializer.data)
+    if serializer.is_valid():
+        return Response(serializer.data)
+    else : 
+        return Response(serializer.errors)
