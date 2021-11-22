@@ -33,7 +33,9 @@ class PostSection extends Component {
     render() {
         return (
             <div className="col-md-8 p-3 col-12">
-                <Renderposts posts={this.state.posts} />
+                <div className="row">
+                    <Renderposts posts={this.state.posts} />
+                </div>
             </div>
         )
     }
@@ -54,25 +56,20 @@ const Renderposts = (props) => {
         // })
         array.map(e => {
             return (
-                <div className="container border my-3">
-                    <div className="row">
-                        <div className="col-12 text-center">
-                            <h1>Heading</h1>
+                <div class="card col-12 col-md-6">
+                    <img src="https://source.unsplash.com/1600x900/?nature,water" class="card-img-top" alt="post"/>
+                    <div class="card-body">
+                        <h5 class="card-title fs-1 fw-bolder">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div className="d-flex text-center">
+                            <div style={{flex: 1}}>Date</div>
+                            <div style={{flex: 1}}>Catergories</div>
+                            <div style={{flex: 1}}>Tags</div>
                         </div>
                     </div>
-                    <div className="row border">
-                        <div className="col-4">author</div>
-                        <div className="col-4">tag</div>
-                        <div className="col-4">date</div>
-                    </div>
-                    <div className="row py-3">
-                        <div className="col-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti sint, adipisci doloribus voluptatem natus culpa earum inventore cupiditate! Labore, eius!</div>
-                    </div>
-                    <div className="row text-center">
-                        <span className="col-4">like</span><span className="col-4">comment</span><span className="col-4">share</span>
-                    </div>
                 </div>
-        )})
+            )
+        })
     )
 }
 

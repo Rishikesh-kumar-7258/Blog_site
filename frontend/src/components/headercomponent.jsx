@@ -30,27 +30,24 @@ const Headtop = () => {
 
 const Navbar = () => {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Subject
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">C++</a></li>
-                                <li><a class="dropdown-item" href="#">Python</a></li>
-                                <li><a class="dropdown-item" href="#">C</a></li>
-                            </ul>
+                <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mb-2 mb-lg-0 text-white col-8">
+                        <li class="nav-item btn-group d-flex">
+                            <button className="btn btn-primary fw-bolder py-3 px-5" style={{flex:1}}>Option 1</button>
+                            <button className="btn btn-primary fw-bolder py-3 px-5" style={{flex:1}}>Option 2</button>
+                            <button className="btn btn-primary fw-bolder py-3 px-5" style={{flex:1}}>Option 3</button>
+                            <button className="btn btn-primary fw-bolder py-3 px-5" style={{flex:1}}>Option 4</button>
                         </li>
                     </ul>
+                    <form class="d-flex col-4">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class ="btn btn-success" type ="submit">Search</button>
+                    </form>
                 </div>
             </div>
         </nav>
