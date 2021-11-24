@@ -8,6 +8,7 @@ class PostSection extends Component {
         }
 
         this.getPosts = this.getPosts.bind(this);
+        this.sendData = this.sendData.bind(this);
     }
 
     componentDidMount() {
@@ -30,10 +31,15 @@ class PostSection extends Component {
             })
     }
 
+    sendData = () => {
+        this.props.parentData("I am child");
+    }
+
     render() {
         return (
             <div className="col-md-8 p-3 col-12">
                 <div className="row">
+                    <button onClick={this.sendData}>click me</button>
                     <Renderposts posts={this.state.posts} />
                 </div>
             </div>
