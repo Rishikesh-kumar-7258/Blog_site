@@ -4,42 +4,18 @@ class PostSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: null,
+            posts: props.posts,
         }
 
-        this.getPosts = this.getPosts.bind(this);
-        this.sendData = this.sendData.bind(this);
     }
 
-    componentDidMount() {
-        this.getPosts();
-    }
 
-    getPosts() {
-        const url = "http://127.0.0.1:8000/api/list/";
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.setState({
-                    posts: data,
-                })
-
-                console.log(this.state.posts);
-
-            })
-    }
-
-    sendData = () => {
-        this.props.parentData("I am child");
-    }
+    
 
     render() {
         return (
             <div className="col-md-8 p-3 col-12">
                 <div className="row">
-                    <button onClick={this.sendData}>click me</button>
                     <Renderposts posts={this.state.posts} />
                 </div>
             </div>
