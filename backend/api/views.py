@@ -34,7 +34,9 @@ def index(request):
         'index' : '',
         'getData' : 'getData/',
         'deleteData' : 'delteData/',
-        'getComments' : 'getComments'
+        'getComments' : 'getComments',
+        'addPost' : 'addPost/',
+        'addComment' : 'addComment/',
     }
 
     return Response(overView)
@@ -78,4 +80,51 @@ def deleteComment(request, id):
     if request.method == "GET":
         return Response("This is delte comment")
 
-# api to change comm
+#api to add post
+@api_view(["POST"])
+def addPost(request):
+    
+    if request.method == "POST":
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# api to add comments
+@api_view(["POST"])
+def addComment(request):
+
+    if request.method == "POST":
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# api to update post
+@api_view(["PUT"])
+def updatePost(request, id):
+    
+    if request.method == "PUT":
+        post = Post.objects.get(id=id)
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# adding users
+@api_view(["POST"])
+def addUser(request):
+
+    if request.method == "POST":
+        first_name, last_name, email, password = request.data;
+        user = User.objects.create_user(first_name, email, password)
+
+        user.last_name = last_name
+        user.save()
+
+        return Response("User created successfully")
+    
+    return Response(status.HTTP_400_BAD_REQUEST)
