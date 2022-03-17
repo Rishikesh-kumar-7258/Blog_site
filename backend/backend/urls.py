@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from api import views
+from api import views, urls
 from django.contrib import admin
 
 router = routers.DefaultRouter()
@@ -12,5 +12,6 @@ router.register(r'groups', views.GroupViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/', include(urls)),
+
 ]
