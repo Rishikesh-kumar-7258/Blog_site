@@ -13,4 +13,6 @@ urlpatterns = [
     path('deleteComment/<int:id>', views.deleteComment, name="deleteComment"),
     path('updatePost/<int:id>', views.updatePost, name="updatePost"),
     path('getUser/<str:username>', views.getUser, name="getUser"),
+    path('addUser', views.addUser, name='addUser'),
+    path('changePassword', views.changePassword, name='changePassword')
 ]

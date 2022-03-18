@@ -116,11 +116,16 @@ def updatePost(request, id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # adding users
-@api_view(["POST"])
+@api_view(["POST", "GET"])
 def addUser(request):
 
     if request.method == "POST":
-        username, first_name, last_name, email, password = request.data;
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        username = request.data['username']
+        email = request.data['email']
+        password = request.data['password']
+
         user = User.objects.create_user(username, email, password)
 
         user.last_name = last_name

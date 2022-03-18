@@ -8,12 +8,12 @@ const Signup = props => {
 
         e.preventDefault();
 
-        fetch('http://localhost:8000/addUser', {
+        fetch('http://localhost:8000/api/addUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({'data': user})
+            body: JSON.stringify(user)
         })
         .then(res => res.json())
     }
