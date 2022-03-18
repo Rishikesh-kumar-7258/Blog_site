@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User, Group
+from django.shortcuts import redirect
 from rest_framework import viewsets
 from rest_framework import permissions
 from api.serializers import UserSerializer, GroupSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth import authenticate, login, logout
 
 from api.models import Post, Comment
 from api.serializers import PostSerializer, CommentSerializer
@@ -161,3 +163,26 @@ def getUser(request, username):
             return Response(False)
 
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# api to authenticate user
+@api_view(["POST"])
+def authenticateUser(request):
+
+    if request.method == "POST":
+        username = request.data['username']
+        password = request.data['password']
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return Response(True)
+        else:
+            return Response("Invalid credentials")
+
+# api to logour user
+@api_view(["POST"])
+def logoutUser(request):
+
+    if request.method == "POST":
+        logout(request)
+        return Response("Logged out successfully")

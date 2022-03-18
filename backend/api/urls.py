@@ -13,6 +13,8 @@ urlpatterns = [
     path('deleteComment/<int:id>', views.deleteComment, name="deleteComment"),
     path('updatePost/<int:id>', views.updatePost, name="updatePost"),
     path('getUser/<str:username>', views.getUser, name="getUser"),
-    path('addUser', views.addUser, name='addUser'),
-    path('changePassword', views.changePassword, name='changePassword')
+    path('addUser/', views.addUser, name='addUser'),
+    path('changePassword/', views.changePassword, name='changePassword'),
+    path('authenticateUser/', views.authenticateUser, name='authenticateUser'),
+    path('logoutUser/', views.logoutUser, name='logoutUser'),
 ]
