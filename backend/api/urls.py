@@ -12,4 +12,5 @@ urlpatterns = [
     path('addComment/', views.addComment, name="addComment"),
     path('deleteComment/<int:id>', views.deleteComment, name="deleteComment"),
     path('updatePost/<int:id>', views.updatePost, name="updatePost"),
+    path('getUser/<str:username>', views.getUser, name="getUser"),
 ]

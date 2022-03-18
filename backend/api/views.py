@@ -37,6 +37,7 @@ def index(request):
         'getComments' : 'getComments',
         'addPost' : 'addPost/',
         'addComment' : 'addComment/',
+        'getUser' : 'getUser/',
     }
 
     return Response(overView)
@@ -119,12 +120,39 @@ def updatePost(request, id):
 def addUser(request):
 
     if request.method == "POST":
-        first_name, last_name, email, password = request.data;
-        user = User.objects.create_user(first_name, email, password)
+        username, first_name, last_name, email, password = request.data;
+        user = User.objects.create_user(username, email, password)
 
         user.last_name = last_name
+        user.first_name = first_name
         user.save()
 
         return Response("User created successfully")
     
     return Response(status.HTTP_400_BAD_REQUEST)
+
+# changing password for user
+@api_view(["PUT"])
+def changePassword(request, username):
+
+    if request.method == "PUT":
+        user = User.objects.get(username=username)
+
+        user.save()
+
+        return Response("Password changed successfully")
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# api to get a user
+@api_view(["GET"])
+def getUser(request, username):
+
+    if request.method == "GET":
+        if User.objects.filter(username=username).exists():
+
+            return Response("Return user details")
+        else :
+            return Response(False)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
