@@ -186,3 +186,13 @@ def logoutUser(request):
     if request.method == "POST":
         logout(request)
         return Response("Logged out successfully")
+
+@api_view(["GET"])
+def getPost(request, id):
+
+    print(id)
+
+    post = Post.objects.get(id=id)
+    serializer = PostSerializer(post)
+
+    return Response(serializer.data)

@@ -49,7 +49,8 @@
 }
 
 .blog-card:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition : transform 0.5s;
     box-shadow: 2px 2px 4px #999;
 }
+

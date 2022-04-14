@@ -17,4 +17,5 @@ urlpatterns = [
     path('changePassword/', views.changePassword, name='changePassword'),
     path('authenticateUser/', views.authenticateUser, name='authenticateUser'),
     path('logoutUser/', views.logoutUser, name='logoutUser'),
+    path('getPost/<int:id>', views.getPost, name='getPost'),
 ]

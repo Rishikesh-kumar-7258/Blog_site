@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
+// import {useHistory} from 'react-router-dom'
 
 const Login = () => {
+    // const history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(user);
@@ -16,9 +19,15 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 if (data === true) {
-                    alert("login successful");
+                    console.log('logged in');
+                    // history.push('/');
                 }
-                else alert(data);
+                else 
+                {
+                    alert(data);
+                    setuser({});
+
+                }
             })
     }
 
