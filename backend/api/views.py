@@ -106,10 +106,11 @@ def addComment(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # api to update post
-@api_view(["PUT"])
+@api_view(["PUT", "POST"])
 def updatePost(request, id):
     
-    if request.method == "PUT":
+    if request.method == "PUT" or request.method == "POST":
+        print(request.data)
         post = Post.objects.get(id=id)
         serializer = PostSerializer(post, data=request.data)
         if serializer.is_valid():
@@ -190,7 +191,7 @@ def logoutUser(request):
 @api_view(["GET"])
 def getPost(request, id):
 
-    print(id)
+    # print(id)
 
     post = Post.objects.get(id=id)
     serializer = PostSerializer(post)
