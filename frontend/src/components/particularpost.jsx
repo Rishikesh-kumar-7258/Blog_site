@@ -17,7 +17,7 @@ const Post = () => {
       .then((res) => getPost(id))
       .catch((err) => console.log(err));
 
-      // getPost(id);
+    // getPost(id);
   };
 
   const getPost = (id) => {
@@ -25,7 +25,7 @@ const Post = () => {
       .then((res) => res.json())
       .then((data) => setpost(data))
       .catch((err) => console.log(err));
-  }
+  };
 
   useEffect(() => {
     getPost(id);
@@ -39,7 +39,7 @@ const Post = () => {
       <div className="row mt-5 p-3 border">
         <div className="col-md-3 col-12">Helper Field</div>
         <div className="col-md-auto col-12">
-          <RenderPost post={post} likePost={likePost}/>
+          <RenderPost post={post} likePost={likePost} />
         </div>
       </div>
     </div>
