@@ -36,7 +36,7 @@ const Post = () => {
   return (
     <div className="container-fluid">
       <Header />
-      <div className="row mt-5 p-3 border">
+      <div className="row mt-5 p-3">
         <div className="col-md-3 col-12">Helper Field</div>
         <div className="col-md-auto col-12">
           <RenderPost post={post} likePost={likePost} />
