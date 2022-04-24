@@ -47,6 +47,9 @@ def index(request):
 #api to get posts data
 @api_view(["GET"])
 def getData(request):
+    """
+    API endpoint that allows to access all posts data.
+    """
     posts = Post.objects.all()
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
@@ -54,6 +57,9 @@ def getData(request):
 # api to delete a particular post
 @api_view(["GET", "DELETE"])
 def deleteData(request, id):
+    """
+    API endpoint that allows to delete a particular post.
+    """
     if request.method == "DELETE":
         post = Post.objects.get(id=id)
         post.delete()
@@ -65,7 +71,9 @@ def deleteData(request, id):
 #api to get comments
 @api_view(["GET"])
 def getComments(request):
-
+    """
+    API endpoint that allows to access all comments data.
+    """
     comments = Comment.objects.all()
     serializer = CommentSerializer(comments, many=True)
 
@@ -179,6 +187,7 @@ def authenticateUser(request):
             return Response(True)
         else:
             return Response("Invalid credentials")
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 # api to logour user
 @api_view(["POST"])
@@ -187,6 +196,8 @@ def logoutUser(request):
     if request.method == "POST":
         logout(request)
         return Response("Logged out successfully")
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET"])
 def getPost(request, id):
