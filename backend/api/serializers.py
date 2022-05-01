@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Like, Post, Comment
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,9 +17,15 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post 
-        fields = ['id', 'title', 'desc', 'likes', 'views', 'date']
+        fields = ['id', 'title', 'desc', 'views', 'author', 'date']
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id', 'desc', 'date']
+        fields = ['id', 'author', 'desc', 'date']
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = ['id', 'post', 'user', 'date']

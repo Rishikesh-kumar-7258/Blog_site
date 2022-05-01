@@ -67,16 +67,15 @@ const RenderPost = ({ post, likePost }) => {
           <p>{post.desc}</p>
         </div>
         <div className="col-12">
-          <p className="d-flex fw-bolder justify-content-between">
+          <p className="d-flex fw-light justify-content-between">
             <span>
-              <button
-                className="btn btn-primary"
+              <i
+                className="fa-solid fa-heart"
                 onClick={() => likePost(post)}
               >
-                {post.likes}
-              </button>
+              </i> {post.likes}
             </span>
-            <span>{post.views}</span>
+            <span><i className="fa-solid fa-share-from-square"></i></span>
           </p>
         </div>
       </div>

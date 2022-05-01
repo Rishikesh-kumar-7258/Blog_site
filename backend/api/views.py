@@ -208,3 +208,14 @@ def getPost(request, id):
     serializer = PostSerializer(post)
 
     return Response(serializer.data)
+
+@api_view(["GET"])
+def getLikes(request, id):
+
+    if request.method == "GET":
+        post = Post.objects.get(id=id)
+        likes = post.likes.all()
+        serializer = PostSerializer(likes, many=True)
+        return Response(serializer.data)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)

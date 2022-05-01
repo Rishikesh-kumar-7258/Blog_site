@@ -16,7 +16,7 @@ const LandinPage = () => {
             .then(res => res.json())
             .then(data => {
                 setblogs(data);
-                console.log(data);
+                // console.log(data);
             })
     }, [])
 
@@ -40,7 +40,7 @@ const Blogs = (props) => {
                         <p className='d-flex justify-content-between'><span>Author : {blog.author}</span><span>Date : {blog.date}</span></p>
                         <p className='display-2'>{blog.title}</p>
                         <p>{blog.desc}</p>
-                        <p className='d-flex justify-content-between mb-0'><span>likes : {blog.likes}</span><span>share</span><span>comment</span></p>
+                        <p className='mb-0'><i className="fa-solid fa-eye"></i> {blog.views}</p>
                     </Link>
                 )
             })}
