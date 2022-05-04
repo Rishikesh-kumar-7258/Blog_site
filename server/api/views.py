@@ -4,6 +4,9 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+from .models import Post, Category
+from .serializers import PostSerializer, CategorySerializer
+
 # Create your views here.
 @api_view(['GET'])
 def index(request):
@@ -36,7 +39,22 @@ def create_post(request):
   """
   Create a post
   """
-  pass
+  
+  title = request.data.get("title")
+  content = request.data.get("content")
+  author = User.objects.get(username=request.user.username)
+  # if (categories)
+
+  post = Post(title=title, content=content, author=author)
+  post.categories.add(request.data.get("categories"))
+
+  postserializer = PostSerializer(post, data=request.data)
+
+  if (postserializer.is_valid()):
+    postserializer.save()
+    return Response(postserializer.data, status=status.HTTP_201_CREATED)
+  else:
+    return Response(postserializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
 def update_post(request, pk):
@@ -59,7 +77,9 @@ def categories(request):
   """
   List of all categories
   """
-  pass
+  categories = Category.objects.all()
+  serializer = CategorySerializer(categories, many=True)
+  return Response(serializer.data)
 
 
 @api_view(['POST'])
@@ -67,7 +87,16 @@ def create_category(request):
   """
   Create a category
   """
-  pass
+  
+  name = request.data.get("name")
+  category = Category(name=name)
+  categoryserializer = CategorySerializer(category, data=request.data)
+
+  if (categoryserializer.is_valid()):
+    categoryserializer.save()
+    return Response(categoryserializer.data, status=status.HTTP_201_CREATED)
+  else:
+    return Response(categoryserializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 ######################## USERS APIS #########################
 @api_view(['POST'])
@@ -123,7 +152,7 @@ def delete_user(request, pk):
   """
   Delete a user
   """
-  pass
+  
 
 # todo not working
 # @api_view(['POST'])
