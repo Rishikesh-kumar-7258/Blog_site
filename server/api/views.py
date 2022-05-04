@@ -24,7 +24,10 @@ def posts(request):
   """
   List of all posts
   """
-  pass
+  
+  posts = Post.objects.all()
+  serializer = PostSerializer(posts, many=True)
+  return Response(serializer.data)
 
 @api_view(['GET'])
 def post(request, pk):
@@ -32,21 +35,31 @@ def post(request, pk):
   Detail of a post
   """
 
-  pass
+  post = Post.objects.get(pk=pk)
+  serializer = PostSerializer(post)
+  return Response(serializer.data)
 
 @api_view(['POST'])
 def create_post(request):
   """
   Create a post
   """
-  
+  categories = request.data.get("categories").split(",")
+  categories = [Category.objects.get(name=category) for category in categories]
+
+  for category in categories:
+    print(type(category))
+
   title = request.data.get("title")
   content = request.data.get("content")
   author = User.objects.get(username=request.user.username)
+  print(author.username)
   # if (categories)
 
   post = Post(title=title, content=content, author=author)
-  post.categories.add(request.data.get("categories"))
+  # post.categories.set(categories)
+  post.save()
+  post.categories.set(categories)
 
   postserializer = PostSerializer(post, data=request.data)
 
@@ -61,7 +74,26 @@ def update_post(request, pk):
   """
   Update a post
   """
-  pass
+  post = Post.objects.get(id=pk)
+
+  if (post is None):
+    return Response(status=status.HTTP_404_NOT_FOUND)
+
+  post.title = request.data.get("title")
+  post.content = request.data.get("content")
+  post.author = User.objects.get(username=request.user.username)
+  categories = request.data.get("categories").split(",")
+  categories = [Category.objects.get(name=category) for category in categories]
+  post.categories.set(categories)
+
+  postserializer = PostSerializer(post, data=request.data)
+  if (postserializer.is_valid()):
+    postserializer.save()
+    return Response(postserializer.data, status=status.HTTP_201_CREATED)
+  else:
+    return Response(postserializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['DELETE'])
 def delete_post(request, pk):

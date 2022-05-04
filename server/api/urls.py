@@ -11,6 +11,10 @@ urlpatterns = [
     
     # paths for posts
     path('create_post/', views.create_post, name='Create Post'),
+    path('update_post/<int:pk>', views.update_post, name='Update Post'),
+    path('posts', views.posts, name='Posts'),
+    path('post/<int:pk>', views.post, name='Post'),
+
 
     # paths for categories
     path('create_category/', views.create_category, name='Create Category'),
