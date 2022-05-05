@@ -74,25 +74,29 @@ def update_post(request, pk):
   """
   Update a post
   """
-  post = Post.objects.get(id=pk)
+  if (request.method == 'PUT'):
+    post = Post.objects.get(id=pk)
 
-  if (post is None):
-    return Response(status=status.HTTP_404_NOT_FOUND)
+    if (post is None):
+      return Response("Post not found", status=status.HTTP_404_NOT_FOUND)
 
-  post.title = request.data.get("title")
-  post.content = request.data.get("content")
-  post.author = User.objects.get(username=request.user.username)
-  categories = request.data.get("categories").split(",")
-  categories = [Category.objects.get(name=category) for category in categories]
-  post.categories.set(categories)
 
-  postserializer = PostSerializer(post, data=request.data)
-  if (postserializer.is_valid()):
-    postserializer.save()
-    return Response(postserializer.data, status=status.HTTP_201_CREATED)
-  else:
-    return Response(postserializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    post.title = request.data.get("title")
+    post.content = request.data.get("content")
+    post.author = User.objects.get(username=request.user.username)
+    categories = request.data.get("categories")
+    if categories is None:
+      post.categories.clear()
+    else:
+      categories = categories.split(",")
+    categories = [Category.objects.get(name=category) for category in categories]
+    post.categories.set(categories)
 
+    post.save()
+
+    return Response(status=status.HTTP_200_OK)
+
+  return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
@@ -100,7 +104,12 @@ def delete_post(request, pk):
   """
   Delete a post
   """
-  pass
+  if request.method == "DELETE":
+    
+    post = Post.objects.get(id=pk).delete()
+    return Response("deleted succcessfully",status=status.HTTP_204_NO_CONTENT)
+
+  return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 ######################## CATEGORIES APIS #########################
@@ -129,6 +138,17 @@ def create_category(request):
     return Response(categoryserializer.data, status=status.HTTP_201_CREATED)
   else:
     return Response(categoryserializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["DELETE"])
+def delete_category(request, pk):
+  """
+  Delete a category
+  """
+  if request.method == "DELETE":
+    category = Category.objects.get(id=pk).delete()
+    return Response("deleted succcessfully",status=status.HTTP_204_NO_CONTENT)
+
+  return Response(status=status.HTTP_400_BAD_REQUEST)
 
 ######################## USERS APIS #########################
 @api_view(['POST'])
@@ -164,49 +184,55 @@ def view_user(request):
   
   return Response(user)
 
-# @api_view(['PUT'])
-# def update_user(request):
-#   """
-#   Update a user
-#   """
-#   user = User.objects.get(username=request.user.username)
-#   user.username = request.data.get('username')
-#   user.password = request.data.get('password')
-#   user.email = request.data.get('email')
-#   user.first_name = request.data.get('first_name')
-#   user.last_name = request.data.get('last_name')
-#   user.save()
-
-#   return Response(status=status.HTTP_205_RESET_CONTENT)
-
-@api_view(['DELETE'])
-def delete_user(request, pk):
+@api_view(['PUT'])
+def change_password(request):
   """
-  Delete a user
+  Update a user
   """
-  
+  try:
+    user = User.objects.get(username=request.user.username)
+  except User.DoesNotExist:
+    return Response("User not found", status=status.HTTP_404_NOT_FOUND)
+
+  if request.method == 'PUT':
+    user.set_password(request.data.get('password'))
+    user.save()
+    return Response(status=status.HTTP_200_OK)
+
+  return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['DELETE'])
+# def delete_user(request):
+#   """
+#   Delete a user
+#   """
+#   if request.method == "DELETE":
+#     request.user.delete()
+#     return Response("deleted succcessfully",status=status.HTTP_204_NO_CONTENT)
+
+#   return Response("Invalid request", status=status.HTTP_400_BAD_REQUEST)
 
 # todo not working
-# @api_view(['POST'])
-# def login(request):
-#   """
-#   Login user
-#   """
+@api_view(['POST'])
+def login(request):
+  """
+  Login user
+  """
 
-#   username = request.data.get('username')
-#   password = request.data.get('password')
+  username = request.data.get('username')
+  password = request.data.get('password')
 
-#   user = authenticate(request,username=username, password=password)
-#   if user is not None:
-#     login(request, user)
-#     return Response(status=status.HTTP_200_OK)
-#   else:
-#     return Response(status=status.HTTP_401_UNAUTHORIZED)
+  user = authenticate(request,username=username, password=password)
+  if user is not None:
+    login(request, user)
+    return Response(status=status.HTTP_200_OK)
+  else:
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-# @api_view(["GET"])
-# def logout(request):
-#   """
-#   Logout user
-#   """
-#   logout(request)
-#   return Response(status=status.HTTP_200_OK)
+@api_view(["GET"])
+def logout(request):
+  """
+  Logout user
+  """
+  logout(request)
+  return Response(status=status.HTTP_200_OK)
