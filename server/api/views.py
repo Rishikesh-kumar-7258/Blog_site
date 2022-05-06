@@ -219,8 +219,8 @@ def login(request):
   Login user
   """
 
-  username = request.data.get('username')
-  password = request.data.get('password')
+  username = request.data.get("username")
+  password = request.data.get("password")
 
   user = authenticate(request,username=username, password=password)
   if user is not None:
