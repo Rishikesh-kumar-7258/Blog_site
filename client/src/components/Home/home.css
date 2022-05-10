@@ -11,3 +11,12 @@
     font-family: 'Roboto Flex', sans-serif;
     color : #cc8b90;
 }
+
+.row a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.postCard a:hover{
+    color: inherit;
+}

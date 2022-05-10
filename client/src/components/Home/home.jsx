@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import "./home.css";
 import Navbar from "../navbar/navbar";
 import GetPosts from "../../usePosts";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const [posts, setPosts] = GetPosts();
+  const [posts] = GetPosts();
 
   return (
     <div className="container-fluid" id="main">
@@ -23,8 +24,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-12">
-        </div>
+        <div className="col-12"></div>
       </div>
     </div>
   );
@@ -35,9 +35,26 @@ const RenderPosts = ({ posts }) => {
     <div className="row">
       {posts.map((post) => {
         return (
-          <div className="col-md-6 col-12 border mb-3 p-3" key={post.id}>
-            <h1 className="text-center fw-bold p-3">{post.title}</h1>
-            <p>{post.content}</p>
+          <div
+            className="col-lg-6 col-12 border mb-3 px-5 py-3 postCard"
+            key={post.id}
+          >
+            <Link to={"post/view/" + post.id}
+            params={{data : post}}
+            >
+              <h1 className="text-center fw-bold p-3">{post.title}</h1>
+            </Link>
+
+              <p className="d-flex align-items-center justify-content-between fw-bold">
+                <span>Author : {post.author}</span>
+                <span>
+                  Categories :{" "}
+                  {post.categories.map((category) => {
+                    return category.name + " ";
+                  })}
+                </span>
+              </p>
+              <p>{post.content.substr(0, 50)}</p>
           </div>
         );
       })}
