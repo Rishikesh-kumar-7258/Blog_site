@@ -1,14 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import "./navbar.css";
 
+import Login from "../auth/login";
+import Signup from "../auth/signup";
+
 const Navbar = () => {
+  const [user, setuser] = useState(null);
+
+  const getUser = async () => {
+    const res = await axios.get('http://127.0.0.1:8000/api/get_user');
+    setuser(res.data);
+  }
+
   return (
     <nav className="py-2 px-4">
-      <a href="#" className="fw-bold fs-4">Blogger Prince</a>
+      <Link to={'/'} className="fw-bold fs-4">Blogger Prince</Link>
       <ul className="fw-bold">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/">Posts</Link></li>
+        <li><a href="#posts">Posts</a></li>
+        {
+          user === null &&
+          <li>
+            <span>
+              <Link to="auth/login">Login</Link>
+            </span>
+            <span>/</span>
+            <span>
+              <Link to="auth/signup">Signup</Link>
+            </span>
+            </li>
+        }
         <li><Link to="/">Settings</Link></li>
       </ul>
       <form action="#" className="d-flex">

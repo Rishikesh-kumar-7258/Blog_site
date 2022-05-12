@@ -17,6 +17,10 @@
     color: inherit;
 }
 
-.postCard a:hover{
-    color: inherit;
+.postCard{
+    transition : box-shadow .2s linear;
+}
+
+.postCard:hover{
+    box-shadow : 2px 2px 10px #313131;
 }

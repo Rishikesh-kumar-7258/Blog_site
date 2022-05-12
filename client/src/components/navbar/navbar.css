@@ -1,10 +1,11 @@
 nav{
-    position : sticky;
+    position : fixed;
     top : 0;
     background : #dfb5b850;
     display: grid;
     grid-template-columns: auto 1fr auto;
     box-shadow: 0px -2px 10px #000;
+    width : 100%;
 }
 
 nav a{

@@ -6,7 +6,7 @@ urlpatterns = [
 
     # user specific paths
     path('create_user/', views.create_user, name='Create User'),
-    path('view_user/', views.view_user, name='View User'),
+    path('get_user/', views.view_user, name='View User'),
     path('change_password/', views.change_password, name='Change Password'),
     path('login/', views.login, name='Login'),
     path('logout/', views.logout, name='Logout'),

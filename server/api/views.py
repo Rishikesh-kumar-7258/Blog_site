@@ -1,8 +1,10 @@
+import json
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from .models import Post, Category
 from .serializers import PostSerializer, CategorySerializer
@@ -168,21 +170,14 @@ def create_user(request):
   return Response(status=status.HTTP_201_CREATED)
 
 # django only allows to get specific fields rather than teh whole user data
+# @login_required(login_url='/api/login')
 @api_view(['GET'])
 def view_user(request):
   """
   Detail of a user
   """
-  user = {
-    "username" : request.user.username,
-    "email" : request.user.email,
-    "first_name" : request.user.first_name,
-    "last_name" : request.user.last_name,
-    "last_login" : request.user.last_login,
-    "date_joined" : request.user.date_joined,
-  }
-  
-  return Response(user)
+
+  return Response(request.user.username)
 
 @api_view(['PUT'])
 def change_password(request):
