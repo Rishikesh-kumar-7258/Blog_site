@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -25,4 +27,4 @@ urlpatterns = [
     path('categories/', views.categories, name='Categories'),
     path('delete_category/<int:pk>', views.delete_category, name='Delete Category'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

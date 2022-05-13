@@ -36,44 +36,9 @@ const Login = () => {
 
     setUser(newval);
 
-    if (target === "password") {
-      valiatePassword(value);
-    }
   };
 
-  const valiatePassword = (password) => {
-
-    var message = "";
-    if (password.length < 8) {
-      message = "Password must be at least 8 characters long";
-    } else if (!password.match(/[A-Z]/)) {
-      message = "Password must contain at least one uppercase letter";
-    } else if (!password.match(/[a-z]/)) {
-      message = "Password must contain at least one lowercase letter";
-    } else if (!password.match(/[0-9]/)) {
-      message = "Password must contain at least one number";
-    } else if (!password.match(/[!@#$%^&*]/)) {
-      message = "Password must contain at least one special character";
-    } else {
-      message = "";
-    }
-
-    const passwordField = document.getElementById("password");
-    const passwordError = document.querySelector(".password-error");
-    if (message === "") 
-    {
-      passwordField.classList.remove("is-invalid");
-      passwordField.classList.add("is-valid");
-    }
-    else 
-    {
-      passwordField.classList.add("is-invalid");
-      passwordField.classList.remove("is-valid");
-    }
-
-    passwordError.innerHTML = message;
-
-  };
+  
 
 
   return (
@@ -108,7 +73,6 @@ const Login = () => {
             value={user.password}
             onChange={handleChange}
           />
-          <div className="password-error"></div>
         </div>
         <div className="mb-3">
           <label htmlFor="confirm_password" className="form-label">

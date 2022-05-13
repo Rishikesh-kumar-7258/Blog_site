@@ -10,6 +10,7 @@ import Post from "./components/posts/view";
 import Navbar from "./components/navbar/navbar";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
+import Profile from "./components/profile/profile";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="post/create" element={<CreatePost />} />
         <Route path="auth/login" element={<Login />} />
         <Route path="auth/signup" element={<Signup />} />
+        <Route path="proflile" element={<Profile/>}/>
       </Routes>
     </div>
   );

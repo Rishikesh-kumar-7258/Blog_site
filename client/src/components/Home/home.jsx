@@ -61,6 +61,8 @@ const RenderPosts = ({ posts }) => {
             className="col-lg-6 col-12 border mb-3 px-5 py-3 postCard"
             key={post.id}
           >
+            <img src={post.image} alt={post.title} />
+            <p>{post.image}</p>
             <Link to={"post/view/" + post.id}
             params={{data : post}}
             >

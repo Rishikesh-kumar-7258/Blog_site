@@ -16,4 +16,4 @@ class PostSerializer(serializers.ModelSerializer):
 
         # fields = '__all__'
 
-        fields = ('id', 'title', 'content', 'author', 'categories', 'created_at', 'updated_at')
+        fields = ('id', 'title', 'content', 'image', 'author', 'categories', 'created_at', 'updated_at')
