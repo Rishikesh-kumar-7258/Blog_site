@@ -1,4 +1,5 @@
 import json
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -208,21 +209,25 @@ def change_password(request):
 #   return Response("Invalid request", status=status.HTTP_400_BAD_REQUEST)
 
 # todo not working
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def login(request):
   """
   Login user
   """
 
-  username = request.data.get("username")
-  password = request.data.get("password")
+  if request.method == 'POST':
+    
+    username = request.data.get('username')
+    password = request.data.get('password')
 
-  user = authenticate(request,username=username, password=password)
-  if user is not None:
-    login(request, user)
-    return Response(status=status.HTTP_200_OK)
+    user = authenticate(request,username=username, password=password)
+    if user is not None:
+      login(request, user)
+      return Response(status=status.HTTP_200_OK)
+    else:
+      return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
   else:
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
+    return HttpResponse("This is login page", status=status.HTTP_200_OK)
 
 @api_view(["GET"])
 def logout(request):

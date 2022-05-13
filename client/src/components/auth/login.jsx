@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import "./login.css";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -9,6 +11,20 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (user.password !== user.confirm_password) {
+      alert("Passwords do not match");
+      setUser({ ...user, password: "", confirm_password: "" });
+      return;
+    }
+
+    fetch("http://localhost:8000/api/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
   };
 
   const handleChange = (e) => {
@@ -19,40 +35,54 @@ const Login = () => {
     newval[target] = value;
 
     setUser(newval);
+
+    if (target === "password") {
+      valiatePassword(value);
+    }
   };
+
+  const valiatePassword = (password) => {
+
+    var message = "";
+    if (password.length < 8) {
+      message = "Password must be at least 8 characters long";
+    } else if (!password.match(/[A-Z]/)) {
+      message = "Password must contain at least one uppercase letter";
+    } else if (!password.match(/[a-z]/)) {
+      message = "Password must contain at least one lowercase letter";
+    } else if (!password.match(/[0-9]/)) {
+      message = "Password must contain at least one number";
+    } else if (!password.match(/[!@#$%^&*]/)) {
+      message = "Password must contain at least one special character";
+    } else {
+      message = "";
+    }
+
+    const passwordField = document.getElementById("password");
+    const passwordError = document.querySelector(".password-error");
+    if (message === "") 
+    {
+      passwordField.classList.remove("is-invalid");
+      passwordField.classList.add("is-valid");
+    }
+    else 
+    {
+      passwordField.classList.add("is-invalid");
+      passwordField.classList.remove("is-valid");
+    }
+
+    passwordError.innerHTML = message;
+
+  };
+
 
   return (
     <>
-      <div
-        className="container-fluid"
-        style={{
-          height: "100vh",
-          position : "absolute",
-          zIndex : "-100",
-          width :"100%",
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1595560013331-de1596c72a3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          filter: "blur(8px)",
-        }}
-      ></div>
-      <form
-        className="p-3 text-dark fw-bold"
-        style={{
-          minWidth: "300px",
-          width: "50%",
-          maxWidth: "500px",
-          background: "#dfb5b850",
-          boxShadow: "0px 2px 10px #000",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform : "translate(-50%, -50%)"
-        }}
-      >
+      <div className="container-fluid" id="blurred"></div>
+      <form className="p-3 text-dark fw-bold loginpage">
+        <div className="mb-3 text-center">
+          <div className="display-5 fw-bold">Login</div>
+        </div>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
             Username
@@ -78,6 +108,7 @@ const Login = () => {
             value={user.password}
             onChange={handleChange}
           />
+          <div className="password-error"></div>
         </div>
         <div className="mb-3">
           <label htmlFor="confirm_password" className="form-label">
