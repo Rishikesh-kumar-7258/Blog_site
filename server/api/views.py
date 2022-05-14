@@ -236,3 +236,18 @@ def logout(request):
   """
   logout(request)
   return Response(status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def is_username_present(request):
+  """
+  Checks if username is already taken
+  """
+
+  username = request.data.get('username')
+  if username is None:
+    return Response("Invalid request", status=status.HTTP_400_BAD_REQUEST)
+
+  if User.objects.filter(username=username).exists():
+    return Response({"message" : "Username already taken", "status" : False})
+  else:
+    return Response({"message" : "Username available", "status" : True})

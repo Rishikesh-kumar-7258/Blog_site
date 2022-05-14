@@ -13,6 +13,7 @@ urlpatterns = [
     path('login/', views.login, name='Login'),
     path('logout/', views.logout, name='Logout'),
     # path('delete_user/', views.delete_user, name='Delete User'),
+    path('check_username/', views.is_username_present, name='Check Username'),
     
     # paths for posts
     path('create_post/', views.create_post, name='Create Post'),
@@ -27,4 +28,4 @@ urlpatterns = [
     path('categories/', views.categories, name='Categories'),
     path('delete_category/<int:pk>', views.delete_category, name='Delete Category'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
