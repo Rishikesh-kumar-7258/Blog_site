@@ -15,7 +15,7 @@ const HomePage = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive : true});
-    console.log(scrollposition);
+    // console.log(scrollposition);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);

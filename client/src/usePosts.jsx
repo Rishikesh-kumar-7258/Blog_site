@@ -7,7 +7,6 @@ const GetPosts = () => {
 
   useEffect(() => {
 
-    // getting post details
     axios.get("http://127.0.0.1:8000/api/posts")
     .then(res => {
       setPosts(res.data)
