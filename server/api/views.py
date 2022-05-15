@@ -1,3 +1,4 @@
+from email.mime import image
 import json
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -55,14 +56,15 @@ def create_post(request):
 
   title = request.data.get("title")
   content = request.data.get("content")
-  author = User.objects.get(username=request.user.username)
-  print(author.username)
+  image = request.data.get("image")
+  # author = User.objects.get(username=request.user.username)
+  # print(author.username)
   # if (categories)
 
-  post = Post(title=title, content=content, author=author)
+  post = Post(title=title, content=content, image=image)
   # post.categories.set(categories)
   post.save()
-  post.categories.set(categories)
+  # post.categories.set(categories)
 
   postserializer = PostSerializer(post, data=request.data)
 
