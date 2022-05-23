@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% block body %}
-<h1 class="text-center">ADD YOUR POST HERE</h1>
+<h1 class="text-center">EDIT YOUR POST HERE</h1>
 <div class="form-group">
   <form method="POST">
     {% csrf_token %} {{form.as_p}}
-    <input type="submit" class="btn btn-success" value="Create" />
+    <input type="submit" class="btn btn-success" value="Update" />
   </form>
 </div>
 {% endblock body %}

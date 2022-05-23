@@ -1,6 +1,6 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from .forms import PostForm
+from .forms import PostForm, UpdateForm
 from .models import Post
 
 
@@ -18,3 +18,9 @@ class CreatePostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = "create_post.html"
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = UpdateForm
+    template_name = "update_post.html"
