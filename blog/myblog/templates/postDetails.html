@@ -3,7 +3,10 @@
 <br />
 by-{{post.author.first_name}} {{post.author.last_name}}<br />
 tag - {{post.tags}}
-<small><a href="{% url 'update_post' post.id%}">Edit</a></small>
+<small
+  ><a href="{% url 'update_post' post.id%}">Edit</a
+  ><a href="{% url 'delete_post' post.id%}">Delete</a></small
+>
 
 <hr />
 {{post.body}}

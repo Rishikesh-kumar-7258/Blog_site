@@ -5,7 +5,8 @@
   <div class="card-content">
     <a href="{% url 'post details' post.id %}">{{post.title}}</a> by -
     {{post.author.first_name}} {{ post.author.last_name}}<small
-      ><a href="{% url 'update_post' post.id%}">Edit</a></small
+      ><a href="{% url 'update_post' post.id%}">Edit</a
+      ><a href="{% url 'delete_post' post.id%}">Delete</a></small
     >
     <br />
     {{post.body}}

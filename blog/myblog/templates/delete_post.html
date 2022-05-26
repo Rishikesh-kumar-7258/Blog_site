@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block body %}
+<h1 class="text-center">Delete post - {{post.title}}</h1>
+<div class="form-group">
+  <form method="POST">
+    {% csrf_token %}
+    <p>Are your sure your want to delete ?</p>
+    <input type="submit" class="btn btn-success" value="Delete" />
+  </form>
+</div>
+{% endblock body %}
