@@ -76,3 +76,12 @@ def categories(request):
   serializer = CategorySerializer(Category.objects.all(), many=True)
 
   return Response(serializer.data)
+
+@api_view(["GET"])
+def category(request, pk):
+  try:
+    category = Category.objects.get(pk=pk)
+    serializer = CategorySerializer(category)
+    return Response(serializer.data)
+  except Exception as e:
+    return Response("No such category Present")
